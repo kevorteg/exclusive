@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Nuestras Modelos | Exclusive Pro{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <h1 class="text-center text-white mb-5 display-4 fw-bold">NUESTRAS MODELOS</h1>
+
+    <ul class="nav nav-pills justify-content-center mb-5" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active fw-bold px-5 py-3 rounded-pill" id="pills-gold-tab" data-bs-toggle="pill"
+                data-bs-target="#pills-gold" type="button" role="tab" style="color: black; background-color: #d4af37;">
+                GOLD
+            </button>
+        </li>
+        <li class="nav-item ms-3" role="presentation">
+            <button class="nav-link fw-bold px-5 py-3 rounded-pill" id="pills-platinum-tab" data-bs-toggle="pill"
+                data-bs-target="#pills-platinum" type="button" role="tab"
+                style="color: black; background-color: #e5e4e2;">
+                PLATINUM
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="pills-tabContent">
+        <!-- Gold Content -->
+        <div class="tab-pane fade show active" id="pills-gold" role="tabpanel">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% for p in gold %}
+                <div class="col">
+                    <div class="card h-100 shadow-lg border-gold">
+                        <a href="{% url 'perfil_detalle' p.slug %}">
+                            <img src="{{ p.foto_principal.url }}" class="card-img-top" alt="{{ p.nombre }}"
+                                style="height: 400px; object-fit: cover;">
+                        </a>
+                        <div class="card-body text-center bg-dark">
+                            <h5 class="card-title text-warning fw-bold">{{ p.nombre }}</h5>
+                            <p class="text-white small">{{ p.ciudad }}</p>
+                            <a href="{% url 'perfil_detalle' p.slug %}" class="btn btn-outline-warning btn-sm w-100">Ver
+                                Detalles</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center text-muted col-12">No hay modelos Gold disponibles.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Platinum Content -->
+        <div class="tab-pane fade" id="pills-platinum" role="tabpanel">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% for p in platinum %}
+                <div class="col">
+                    <div class="card h-100 shadow-lg border-platinum">
+                        <a href="{% url 'perfil_detalle' p.slug %}">
+                            <img src="{{ p.foto_principal.url }}" class="card-img-top" alt="{{ p.nombre }}"
+                                style="height: 400px; object-fit: cover;">
+                        </a>
+                        <div class="card-body text-center bg-dark">
+                            <h5 class="card-title text-white fw-bold">{{ p.nombre }}</h5>
+                            <p class="text-white small">{{ p.ciudad }}</p>
+                            <a href="{% url 'perfil_detalle' p.slug %}" class="btn btn-light btn-sm w-100">Ver
+                                Detalles</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center text-muted col-12">No hay modelos Platinum disponibles.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .border-gold {
+        border: 1px solid #d4af37;
+    }
+
+    .border-platinum {
+        border: 1px solid #e5e4e2;
+    }
+</style>
+{% endblock %}

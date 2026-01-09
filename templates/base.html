@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Exclusive Pro{% endblock %}</title>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        gold: '#d4af37',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #050505;
+            color: white;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 10px;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="selection:bg-gold/30">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-6">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <a href="{% url 'home' %}" class="text-2xl font-bold tracking-[0.3em] font-serif text-gold no-underline">
+                EXCLUSIVE <span className="text-white font-sans font-light">PRO</span>
+            </a>
+
+            <div class="hidden md:flex space-x-10 text-[10px] font-bold uppercase tracking-[0.2em]">
+                <a href="{% url 'acompañantes' %}"
+                    class="text-gray-300 hover:text-gold transition-colors no-underline">Acompañantes</a>
+                <a href="{% url 'instalaciones' %}"
+                    class="text-gray-300 hover:text-gold transition-colors no-underline">Club Privado</a>
+                <a href="#" class="text-gray-300 hover:text-gold transition-colors no-underline">Membresía</a>
+                <a href="{% url 'contacto' %}"
+                    class="text-gray-300 hover:text-gold transition-colors no-underline">Contacto</a>
+            </div>
+
+            <button class="md:hidden text-white">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black py-20 px-6 border-t border-gold/20">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="md:col-span-2 space-y-6">
+                <div class="text-3xl font-bold tracking-[0.3em] font-serif text-gold">
+                    EXCLUSIVE <span class="text-white font-sans font-light">PRO</span>
+                </div>
+                <p class="text-gray-500 text-sm font-light max-w-sm leading-loose uppercase tracking-widest">
+                    La agencia boutique líder en Cali, ofreciendo servicios de acompañamiento premium con la mayor
+                    discreción del mercado.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#" class="p-3 bg-white/5 rounded-full hover:bg-gold hover:text-black transition-all"><i
+                            data-lucide="message-circle" width="20"></i></a>
+                    <a href="#" class="p-3 bg-white/5 rounded-full hover:bg-gold hover:text-black transition-all"><i
+                            data-lucide="phone" width="20"></i></a>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <h5 class="text-gold font-bold text-xs uppercase tracking-[0.2em] border-b border-gold/20 pb-2">
+                    Navegación</h5>
+                <ul class="space-y-4 text-xs font-bold text-gray-400 uppercase tracking-widest list-none ps-0">
+                    <li><a href="{% url 'home' %}" class="hover:text-white transition-colors no-underline">Inicio</a>
+                    </li>
+                    <li><a href="{% url 'acompañantes' %}"
+                            class="hover:text-white transition-colors no-underline">Acompañantes</a></li>
+                    <li><a href="{% url 'instalaciones' %}"
+                            class="hover:text-white transition-colors no-underline">Instalaciones</a></li>
+                    <li><a href="{% url 'contacto' %}"
+                            class="hover:text-white transition-colors no-underline">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div class="space-y-6">
+                <h5 class="text-gold font-bold text-xs uppercase tracking-[0.2em] border-b border-gold/20 pb-2">Reservas
+                </h5>
+                <div class="space-y-2">
+                    <p class="text-xs text-gray-400 uppercase tracking-widest">Central de Citas</p>
+                    <a href="https://wa.me/{{ agencia.whatsapp_central }}"
+                        class="text-2xl font-bold text-white hover:text-gold transition-colors tracking-tighter no-underline">
+                        WhatsApp VIP
+                    </a>
+                    <p class="text-[10px] text-gray-600 mt-4 italic">Solo para mayores de 18 años.</p>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-20 pt-10 border-t border-white/5 text-center">
+            <p class="text-[10px] text-gray-700 tracking-[0.5em] uppercase font-bold">
+                &copy; 2026 Exclusive Pro Luxury Agency • Cali • Colombia
+            </p>
+        </div>
+    </footer>
+
+    <!-- Init Icons & Scroll Effect -->
+    <script>
+        lucide.createIcons();
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-black/90', 'py-3', 'border-b', 'border-yellow-600/30');
+                nav.classList.remove('py-6');
+            } else {
+                nav.classList.remove('bg-black/90', 'py-3', 'border-b', 'border-yellow-600/30');
+                nav.classList.add('py-6');
+            }
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

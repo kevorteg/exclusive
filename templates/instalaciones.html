@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Instalaciones | Exclusive Pro{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-gradient-gold">NUESTRAS INSTALACIONES</h1>
+        <p class="lead text-muted">Lujo, privacidad y confort para tus encuentros.</p>
+    </div>
+
+    <div class="row g-4">
+        <!-- Puedes reemplazar estas URLs por fotos reales de tu carpeta media/instalaciones/ -->
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <img src="https://via.placeholder.com/800x500/000000/d4af37?text=Suite+Presidencial"
+                    class="img-fluid rounded" alt="Suite Principal">
+                <div class="card-footer bg-dark text-center text-warning fw-bold">SUITE PRESIDENCIAL</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-lg mb-4">
+                <img src="https://via.placeholder.com/400x240/000000/d4af37?text=Jacuzzi+Privado"
+                    class="img-fluid rounded" alt="Jacuzzi">
+                <div class="card-footer bg-dark text-center text-white small">JACUZZI PRIVADO</div>
+            </div>
+            <div class="card shadow-lg">
+                <img src="https://via.placeholder.com/400x240/000000/d4af37?text=Bar+Lounge" class="img-fluid rounded"
+                    alt="Bar">
+                <div class="card-footer bg-dark text-center text-white small">BAR LOUNGE</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

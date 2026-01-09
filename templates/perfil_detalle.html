@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ perfil.nombre }} | Exclusive Pro{% endblock %}
+
+{% block content %}
+<div class="bg-black min-h-screen pt-32 pb-20">
+    <div class="max-w-7xl mx-auto px-6">
+
+        <!-- HEADER CENTERED -->
+        <div class="text-center mb-16 animate-fade-in">
+            <h1 class="text-6xl md:text-8xl font-serif text-white mb-6 tracking-tight">{{ perfil.nombre }}</h1>
+            <span
+                class="px-8 py-3 border {% if perfil.tarifa.nombre == 'PLATINUM' %}border-white/20 text-white bg-white/5{% else %}border-gold text-gold bg-gold/10{% endif %} text-xs font-black tracking-[0.4em] uppercase">
+                {{ perfil.tarifa.nombre }}
+            </span>
+        </div>
+
+        <!-- MAIN SPLIT CONTENT -->
+        <div class="flex flex-col lg:flex-row gap-16 mb-24">
+            <!-- LEFT: MAIN PHOTO (Vertical) -->
+            <div class="lg:w-1/2 relative group">
+                <div class="aspect-[3/4] w-full overflow-hidden border border-white/10 relative shadow-2xl">
+                    <img src="{{ perfil.foto_principal.url }}" alt="{{ perfil.nombre }}"
+                        class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 filter brightness-90">
+                    <!-- Gradient Overlay -->
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none">
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: INFO & SERVICES -->
+            <div class="lg:w-1/2 flex flex-col justify-center space-y-12">
+
+                <!-- Services Box (Red Aesthetic) -->
+                <div class="border border-red-900/30 bg-[#1a0505] p-10 relative rounded-sm shadow-xl">
+                    <h3
+                        class="absolute -top-4 left-1/2 -translate-x-1/2 bg-black border border-red-900/30 px-6 py-1 text-xl font-serif text-red-500 tracking-widest">
+                        SERVICIOS</h3>
+
+                    <div class="flex flex-wrap justify-center gap-3 mt-4">
+                        <!-- Mock Services for Visuals -->
+                        <span
+                            class="px-4 py-2 bg-red-900/40 text-red-200 border border-red-900/50 text-[10px] font-bold uppercase tracking-widest rounded-sm hover:bg-red-900 transition-colors cursor-default">Vaginal
+                            (Inc.)</span>
+                        <span
+                            class="px-4 py-2 bg-red-900/40 text-red-200 border border-red-900/50 text-[10px] font-bold uppercase tracking-widest rounded-sm hover:bg-red-900 transition-colors cursor-default">Oral
+                            (Inc.)</span>
+                        <span
+                            class="px-4 py-2 bg-red-900/40 text-red-200 border border-red-900/50 text-[10px] font-bold uppercase tracking-widest rounded-sm hover:bg-red-900 transition-colors cursor-default">Masaje
+                            Erótico</span>
+                        <span
+                            class="px-4 py-2 bg-red-900/40 text-red-200 border border-red-900/50 text-[10px] font-bold uppercase tracking-widest rounded-sm hover:bg-red-900 transition-colors cursor-default">Parejas</span>
+                        <span
+                            class="px-4 py-2 bg-red-900/40 text-red-200 border border-red-900/50 text-[10px] font-bold uppercase tracking-widest rounded-sm hover:bg-red-900 transition-colors cursor-default">Trato
+                            de Novios</span>
+                        {% if perfil.tarifa.incluye_jacuzzi %}
+                        <span
+                            class="px-4 py-2 bg-gold/10 text-gold border border-gold/40 text-[10px] font-bold uppercase tracking-widest rounded-sm">Jacuzzi</span>
+                        {% endif %}
+                    </div>
+
+                    <p class="text-center text-gray-400 text-sm mt-8 leading-loose font-light">
+                        El servicio incluye sexo vaginal con protección y sexo oral con protección.
+                        Cualquier otro servicio adicional (como BDSM ligero, Fetiches, etc.) debe ser acordado
+                        previamente.
+                        <br><br>
+                        <span class="text-gold font-serif text-lg block mt-2 border-t border-red-900/20 pt-4">Tarifa por
+                            Hora: <span class="font-bold">${{ perfil.tarifa.precio_hora }} COP</span></span>
+                    </p>
+
+                    <!-- CTA -->
+                    <div class="mt-8 text-center">
+                        {% if agencia.whatsapp_central %}
+                        <a href="https://wa.me/{{ agencia.whatsapp_central }}?text=Hola,%20Agencia%20Exclusive.%20Quiero%20reservar%20una%20cita%20con%20{{ perfil.nombre }}%20({{ perfil.tarifa.nombre }})"
+                            target="_blank"
+                            class="inline-block w-full py-4 bg-red-900 hover:bg-red-800 border border-red-700 text-white text-xs font-bold tracking-[0.3em] uppercase transition-all shadow-lg hover:shadow-red-900/20 no-underline">
+                            Reservar Cita Ahora
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Info Grid -->
+                <div class="grid grid-cols-2 gap-8 text-center border-t border-b border-white/5 py-8">
+                    <div>
+                        <span class="block text-white text-3xl font-serif">{{ perfil.edad }}</span>
+                        <span class="text-[9px] text-gray-500 uppercase tracking-widest font-bold">Años</span>
+                    </div>
+                    <div>
+                        <span class="block text-white text-3xl font-serif">{{ perfil.ciudad }}</span>
+                        <span class="text-[9px] text-gray-500 uppercase tracking-widest font-bold">Ubicación</span>
+                    </div>
+                </div>
+
+                <!-- Bio -->
+                <div class="text-justify text-gray-400 font-light leading-relaxed text-lg px-4">
+                    {{ perfil.biografia_larga|linebreaksbr }}
+                </div>
+            </div>
+        </div>
+
+        <!-- GALLERY GRID -->
+        {% if perfil.fotos.exists %}
+        <div class="border-t border-white/5 pt-20">
+            <h3 class="text-4xl font-serif text-white text-center mb-16">Galería <span class="text-gold">Privada</span>
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-1">
+                {% for foto in perfil.fotos.all %}
+                <div class="aspect-[3/4] group overflow-hidden relative cursor-pointer bg-neutral-900">
+                    <img src="{{ foto.imagen.url }}"
+                        class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0 opacity-80 group-hover:opacity-100"
+                        alt="Galería Exclusive">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all"></div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

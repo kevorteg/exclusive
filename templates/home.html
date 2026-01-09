@@ -1,0 +1,478 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?auto=format&fit=crop&q=80&w=2000"
+            class="w-full h-full object-cover filter brightness-[0.3] grayscale" alt="Luxury background" />
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-[#050505]"></div>
+    </div>
+
+    <div class="relative z-10 text-center px-4 max-w-4xl animate-fade-in">
+        <div
+            class="inline-flex items-center space-x-2 bg-white/5 border border-white/10 px-4 py-1 rounded-full mb-6 backdrop-blur-md">
+            <i data-lucide="shield-check" class="text-gold w-4"></i>
+            <span class="text-[10px] tracking-[0.2em] uppercase font-bold text-gray-300">Agencia Verificada en
+                Cali</span>
+        </div>
+        <h1 class="text-5xl md:text-8xl font-serif mb-6 leading-tight tracking-tight">
+            La Experiencia de <span class="text-gold">Lujo</span> Definitiva
+        </h1>
+        <p class="text-lg md:text-xl font-light text-gray-400 mb-10 tracking-[0.1em] max-w-2xl mx-auto uppercase">
+            Discreción Absoluta & Selección Exclusiva de Acompañantes de Élite
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="#catalogo"
+                class="w-full sm:w-auto px-12 py-4 border border-gold text-gold text-xs font-bold tracking-[0.3em] uppercase hover:bg-gold hover:text-black transition-all duration-500 no-underline">
+                Explorar Catálogo
+            </a>
+            <button onclick="toggleSidePanel('rates')"
+                class="w-full sm:w-auto px-12 py-4 bg-white/5 border border-white/10 text-white text-xs font-bold tracking-[0.3em] uppercase hover:bg-white/10 transition-all duration-500">
+                Ver Tarifas
+            </button>
+        </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-40">
+        <div class="w-[1px] h-12 bg-gradient-to-b from-transparent to-gold"></div>
+    </div>
+</section>
+
+<!-- La Agencia Section (Quienes Somos) -->
+<section class="py-20 px-6 bg-[#0a0a0a] border-b border-white/5">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
+        <div class="md:w-1/2 text-center md:text-left space-y-6">
+            <h2 class="text-4xl md:text-5xl font-serif text-white">La <span class="text-gold">Agencia</span></h2>
+            <div class="w-20 h-1 bg-gold mx-auto md:mx-0"></div>
+            <p class="text-gray-400 leading-loose font-light text-lg text-justify">
+                Exclusive Pro Luxury Agency es un espacio diseñado para prestar el servicio de entretenimiento adulto de
+                más alto nivel. Facilitamos un lugar con instalaciones de calidad, comodidad, seguridad y todos los
+                servicios necesarios para vivir la mejor experiencia.
+            </p>
+            <p class="text-gray-400 leading-loose font-light text-lg text-justify">
+                Más de 5 años en la ciudad de Cali ganando reconocimiento por parte de sus clientes. En Exclusive Pro
+                nuestro lema es su satisfacción absoluta. Aquí, todas sus fantasías se hacen realidad en un entorno de
+                discreción total.
+            </p>
+        </div>
+        <div class="md:w-1/2 relative">
+            <div class="absolute inset-0 bg-gold/20 blur-[100px] rounded-full"></div>
+            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1000"
+                alt="Interior Exclusivo"
+                class="relative z-10 w-full h-[400px] object-cover rounded-sm shadow-2xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-700">
+        </div>
+    </div>
+</section>
+
+<!-- Instalaciones Section -->
+<section class="py-24 bg-black relative border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+        <h2 class="text-4xl md:text-5xl font-serif text-white mb-8">Nuestras <span
+                class="text-gold">Instalaciones</span></h2>
+        <p class="text-gray-400 font-light max-w-4xl mx-auto leading-relaxed mb-16 text-lg">
+            Exclusive Pro Luxury Agency cuenta de gran variedad de instalaciones para darle una confortable experiencia.
+            Entre las instalaciones, tenemos parqueadero privado, piscina, suites y suites con jacuzzi y salas de
+            presentación. Todas las habitaciones están dotadas con servicios de internet, televisión, telefonía IP,
+            baños privados y confortables camas.
+        </p>
+
+        <!-- Icons Grid -->
+        <div class="flex flex-wrap justify-center gap-6 mb-20 animate-fade-in">
+            <div
+                class="flex flex-col items-center gap-3 p-6 border border-white/10 rounded-sm hover:border-gold/50 hover:bg-white/5 transition-all w-40">
+                <i data-lucide="armchair" class="text-gold w-10 h-10"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-300">Sala Presentación</span>
+            </div>
+            <div
+                class="flex flex-col items-center gap-3 p-6 border border-white/10 rounded-sm hover:border-gold/50 hover:bg-white/5 transition-all w-40">
+                <i data-lucide="waves" class="text-gold w-10 h-10"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-300">Piscina</span>
+            </div>
+            <div
+                class="flex flex-col items-center gap-3 p-6 border border-white/10 rounded-sm hover:border-gold/50 hover:bg-white/5 transition-all w-40">
+                <i data-lucide="bath" class="text-gold w-10 h-10"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-300">Suite Jacuzzi</span>
+            </div>
+            <div
+                class="flex flex-col items-center gap-3 p-6 border border-white/10 rounded-sm hover:border-gold/50 hover:bg-white/5 transition-all w-40">
+                <i data-lucide="users" class="text-gold w-10 h-10"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-300">Suite Múltiple</span>
+            </div>
+            <div
+                class="flex flex-col items-center gap-3 p-6 border border-white/10 rounded-sm hover:border-gold/50 hover:bg-white/5 transition-all w-40">
+                <i data-lucide="bed-double" class="text-gold w-10 h-10"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-300">Suites Lujo</span>
+            </div>
+        </div>
+
+        <!-- Suite Highlight -->
+        <div
+            class="flex flex-col md:flex-row items-center gap-12 bg-[#0a0a0a] border border-white/5 p-8 md:p-12 rounded-lg relative overflow-hidden group">
+            <div class="absolute inset-0 bg-gradient-to-r from-black via-transparent to-transparent z-10"></div>
+            <div class="md:w-1/2 z-20 text-left space-y-6">
+                <h3 class="text-3xl font-serif text-gold">Suites Exclusivas</h3>
+                <div class="w-12 h-0.5 bg-white/20"></div>
+                <p class="text-gray-400 font-light leading-relaxed">
+                    Nuestras suites son cómodas y modernas instalaciones que cuentan con servicio de internet de alta
+                    velocidad, Smart TV 4K, cama King Size, baño privado con acabados de lujo y aire acondicionado
+                    controlado. Diseñadas para su máximo confort y privacidad.
+                </p>
+                <a href="{% url 'instalaciones' %}"
+                    class="inline-block mt-4 text-[10px] font-bold text-white border-b border-gold pb-1 hover:text-gold transition-colors uppercase tracking-[0.2em] no-underline">
+                    Ver Galería de Fotos
+                </a>
+            </div>
+            <div class="md:w-1/2 h-64 md:h-full relative overflow-hidden w-full">
+                <!-- Using placeholder if no specific image available, but linking to a generic luxury room -->
+                <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&q=80&w=1000"
+                    class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 brightness-75"
+                    alt="Suite Lujo">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Catálogo Section -->
+<main id="catalogo" class="py-24 px-6 max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+        <div class="space-y-4">
+            <h2 class="text-4xl md:text-5xl font-serif">Acompañantes</h2>
+            <p class="text-gray-500 font-light text-lg">Modelos verificadas disponibles para encuentros VIP.</p>
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+            <button
+                class="filter-btn px-6 py-2 rounded-full text-[10px] font-bold tracking-widest transition-all duration-300 bg-gold border border-gold text-black shadow-lg shadow-gold/20"
+                data-filter="TODAS" onclick="filterProfiles('TODAS', this)">TODAS</button>
+            <button
+                class="filter-btn px-6 py-2 rounded-full text-[10px] font-bold tracking-widest transition-all duration-300 border border-white/10 text-gray-400 hover:border-white/30"
+                data-filter="PLATINUM" onclick="filterProfiles('PLATINUM', this)">PLATINUM</button>
+            <button
+                class="filter-btn px-6 py-2 rounded-full text-[10px] font-bold tracking-widest transition-all duration-300 border border-white/10 text-gray-400 hover:border-white/30"
+                data-filter="GOLD" onclick="filterProfiles('GOLD', this)">GOLD</button>
+        </div>
+    </div>
+
+    <!-- Grid de Perfiles -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10" id="profiles-grid">
+        {% for p in perfiles %}
+        <div class="profile-card group relative bg-[#0a0a0a] border border-white/5 overflow-hidden transition-all duration-500 hover:border-gold/40 hover:-translate-y-2"
+            data-category="{{ p.tarifa.nombre }}">
+            <!-- Badge de Categoría -->
+            <div class="absolute top-4 right-4 z-20">
+                <span
+                    class="bg-black/80 backdrop-blur-md border border-gold/50 text-gold text-[9px] font-black px-3 py-1 tracking-[0.2em] uppercase">
+                    {{ p.tarifa.nombre }}
+                </span>
+            </div>
+
+            <!-- Imagen con Overlay -->
+            <div class="relative aspect-[3/4] overflow-hidden">
+                <img src="{{ p.foto_principal.url }}" alt="{{ p.nombre }}"
+                    class="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105" />
+                <div
+                    class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity">
+                </div>
+
+                {% if p.en_tiempo_real %}
+                <div
+                    class="absolute bottom-4 left-4 flex items-center space-x-2 bg-red-600/90 text-white text-[8px] font-bold px-2 py-1 rounded-sm uppercase tracking-tighter animate-pulse">
+                    <span class="w-1.5 h-1.5 bg-white rounded-full"></span>
+                    <span>Disponible Ahora</span>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Información -->
+            <div class="p-8 text-center relative">
+                <h3 class="text-3xl font-serif mb-1 group-hover:text-gold transition-colors">{{ p.nombre }}</h3>
+                <p class="text-[10px] text-gray-500 tracking-[0.3em] font-bold uppercase mb-6">
+                    {{ p.ciudad }} • {{ p.edad }} Años
+                </p>
+
+                <div class="flex flex-wrap justify-center gap-2 mb-8">
+                    <!-- Placeholder tags, could come from DB later -->
+                    <span
+                        class="text-[9px] text-gold/70 font-bold border border-gold/20 px-2 py-0.5 rounded-sm">MASAJES</span>
+                    <span
+                        class="text-[9px] text-gold/70 font-bold border border-gold/20 px-2 py-0.5 rounded-sm">CENA</span>
+                </div>
+
+                <a href="{% url 'perfil_detalle' p.slug %}"
+                    class="block w-full py-4 border border-gold/30 text-gold text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-gold hover:text-black transition-all duration-300 no-underline">
+                    Ver Perfil Completo
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+
+<!-- Info Adicional -->
+<section class="bg-[#080808] py-24 border-y border-white/5">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
+        <div class="space-y-4">
+            <div class="flex justify-center"><i data-lucide="shield-check" class="text-gold w-10 h-10"></i></div>
+            <h4 class="text-xl font-serif">Privacidad Total</h4>
+            <p class="text-sm text-gray-500 font-light leading-relaxed">Nuestras instalaciones cuentan con entradas
+                discretas y protocolos de máxima seguridad.</p>
+        </div>
+        <div class="space-y-4">
+            <div class="flex justify-center"><i data-lucide="clock" class="text-gold w-10 h-10"></i></div>
+            <h4 class="text-xl font-serif">Disponibilidad 24/7</h4>
+            <p class="text-sm text-gray-500 font-light leading-relaxed">Personal y acompañantes listos para atenderle en
+                cualquier momento.</p>
+        </div>
+        <div class="space-y-4">
+            <div class="flex justify-center"><i data-lucide="star" class="text-gold w-10 h-10"></i></div>
+            <h4 class="text-xl font-serif">Categoría Elite</h4>
+            <p class="text-sm text-gray-500 font-light leading-relaxed">Perfiles verificados que cumplen con los más
+                altos estándares.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Floating Action Buttons -->
+<div class="fixed right-0 top-1/2 -translate-y-1/2 z-[60] flex flex-col items-end">
+    <button onclick="toggleSidePanel('live')"
+        class="bg-red-700 hover:bg-red-800 text-white p-4 flex flex-col items-center justify-center gap-2 rounded-l-xl shadow-2xl transition-all hover:pr-8 group mb-2">
+        <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+        <span class="[writing-mode:vertical-lr] rotate-180 text-[9px] font-black tracking-[0.3em] uppercase">En
+            Vivo</span>
+    </button>
+    <button onclick="toggleSidePanel('rates')"
+        class="bg-gold hover:bg-[#b8962d] text-black p-4 flex flex-col items-center justify-center gap-2 rounded-l-xl shadow-2xl transition-all hover:pr-8 group">
+        <i data-lucide="dollar-sign" class="w-4"></i>
+        <span
+            class="[writing-mode:vertical-lr] rotate-180 text-[9px] font-black tracking-[0.3em] uppercase">Tarifas</span>
+    </button>
+</div>
+
+<!-- Side Panels -->
+<!-- LIVE PANEL -->
+<div id="panel-live" class="fixed inset-0 z-[100] hidden">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleSidePanel('live')"></div>
+    <div
+        class="absolute top-0 right-0 h-full w-full sm:w-[400px] bg-[#0a0a0a] border-l border-gold/20 shadow-2xl overflow-y-auto custom-scrollbar">
+        <div class="p-8">
+            <div class="flex justify-between items-center mb-10">
+                <h3 class="text-2xl font-serif text-gold">En Tiempo Real</h3>
+                <button onclick="toggleSidePanel('live')" class="text-gray-400 hover:text-white"><i
+                        data-lucide="x"></i></button>
+            </div>
+
+            <div class="space-y-8">
+                <p class="text-[10px] text-gray-500 uppercase tracking-[0.2em] font-bold">Estado Actual de Modelos</p>
+
+                <!-- GOLD LIST -->
+                {% if en_linea_gold %}
+                <div>
+                    <div class="flex items-center justify-between mb-6">
+                        <h4 class="text-[10px] font-black text-gold tracking-[0.4em] uppercase">GOLD</h4>
+                        <div class="h-[1px] flex-grow bg-gold/20 ml-4"></div>
+                    </div>
+                    <div class="space-y-6">
+                        {% for p in en_linea_gold %}
+                        <div class="flex items-center space-x-6 border-b border-white/5 pb-6">
+                            <div class="relative">
+                                <img src="{{ p.foto_principal.url }}"
+                                    class="w-16 h-16 rounded-full object-cover grayscale transition-all border border-white/10" />
+                                <div
+                                    class="absolute -bottom-1 -right-1 w-4 h-4 border-2 border-[#0a0a0a] rounded-full {% if p.estado == 'DISPONIBLE' %}bg-green-500{% elif p.estado == 'OCUPADA' %}bg-red-500{% else %}bg-yellow-500{% endif %}">
+                                </div>
+                            </div>
+                            <div class="flex-grow">
+                                <h4 class="font-serif text-lg text-white">{{ p.nombre }}</h4>
+                                <div class="flex items-center space-x-2 mt-1">
+                                    <span class="text-[8px] text-gold font-black tracking-widest uppercase">{{
+                                        p.tarifa.nombre }}</span>
+                                    <span
+                                        class="text-[9px] font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider
+                                        {% if p.estado == 'DISPONIBLE' %}text-green-500 bg-green-900/20{% elif p.estado == 'OCUPADA' %}text-red-500 bg-red-900/20{% else %}text-yellow-500 bg-yellow-900/20{% endif %}">
+                                        {{ p.get_estado_display }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- PLATINUM LIST -->
+                {% if en_linea_platinum %}
+                <div>
+                    <div class="flex items-center justify-between mb-6">
+                        <h4 class="text-[10px] font-black text-gold tracking-[0.4em] uppercase">PLATINUM</h4>
+                        <div class="h-[1px] flex-grow bg-gold/20 ml-4"></div>
+                    </div>
+                    <div class="space-y-6">
+                        {% for p in en_linea_platinum %}
+                        <div class="flex items-center space-x-6 border-b border-white/5 pb-6">
+                            <div class="relative">
+                                <img src="{{ p.foto_principal.url }}"
+                                    class="w-16 h-16 rounded-full object-cover grayscale transition-all border border-white/10" />
+                                <div
+                                    class="absolute -bottom-1 -right-1 w-4 h-4 border-2 border-[#0a0a0a] rounded-full {% if p.estado == 'DISPONIBLE' %}bg-green-500{% elif p.estado == 'OCUPADA' %}bg-red-500{% else %}bg-yellow-500{% endif %}">
+                                </div>
+                            </div>
+                            <div class="flex-grow">
+                                <h4 class="font-serif text-lg text-white">{{ p.nombre }}</h4>
+                                <div class="flex items-center space-x-2 mt-1">
+                                    <span class="text-[8px] text-gold font-black tracking-widest uppercase">{{
+                                        p.tarifa.nombre }}</span>
+                                    <span
+                                        class="text-[9px] font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider
+                                        {% if p.estado == 'DISPONIBLE' %}text-green-500 bg-green-900/20{% elif p.estado == 'OCUPADA' %}text-red-500 bg-red-900/20{% else %}text-yellow-500 bg-yellow-900/20{% endif %}">
+                                        {{ p.get_estado_display }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- RATES PANEL (Calculator) -->
+<div id="panel-rates" class="fixed inset-0 z-[100] hidden">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleSidePanel('rates')"></div>
+    <div
+        class="absolute top-0 right-0 h-full w-full sm:w-[400px] bg-[#0a0a0a] border-l border-gold/20 shadow-2xl overflow-y-auto custom-scrollbar">
+        <div class="p-8">
+            <div class="flex justify-between items-center mb-10">
+                <h3 class="text-2xl font-serif text-gold">Calculadora VIP</h3>
+                <button onclick="toggleSidePanel('rates')" class="text-gray-400 hover:text-white"><i
+                        data-lucide="x"></i></button>
+            </div>
+
+            <!-- Calculator Form -->
+            <div class="bg-[#111] p-6 rounded-sm border border-white/5 space-y-6">
+                <!-- Categoría -->
+                <div class="space-y-2">
+                    <label class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Categoría</label>
+                    <select id="calc-category" onchange="calculateRate()"
+                        class="w-full bg-black border border-white/10 text-white p-3 text-sm focus:border-gold outline-none rounded-sm">
+                        <option value="GOLD" data-price-1h="{{ tarifas_gold.precio_hora }}"
+                            data-price-30="{{ tarifas_gold.precio_30_min }}">GOLD</option>
+                        <option value="PLATINUM" data-price-1h="{{ tarifas_platinum.precio_hora }}"
+                            data-price-30="{{ tarifas_platinum.precio_30_min }}">PLATINUM</option>
+                    </select>
+                </div>
+
+                <!-- Tiempo -->
+                <div class="space-y-2">
+                    <label class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Duración</label>
+                    <select id="calc-duration" onchange="calculateRate()"
+                        class="w-full bg-black border border-white/10 text-white p-3 text-sm focus:border-gold outline-none rounded-sm">
+                        <option value="60">60 Minutos</option>
+                        <option value="30">30 Minutos</option>
+                    </select>
+                </div>
+
+                <!-- Servicio Adicional -->
+                <div class="space-y-2">
+                    <label class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Adicionales</label>
+                    <select id="calc-extras" onchange="calculateRate()"
+                        class="w-full bg-black border border-white/10 text-white p-3 text-sm focus:border-gold outline-none rounded-sm">
+                        <option value="0">Ninguno</option>
+                        <option value="JACUZZI">Suite con Jacuzzi (Incluido en Platinum)</option>
+                    </select>
+                </div>
+
+                <!-- Resultado -->
+                <div class="mt-8 pt-8 border-t border-white/10 text-center space-y-2">
+                    <p class="text-[10px] text-gray-500 uppercase tracking-widest">Total Estimado</p>
+                    <p id="calc-result" class="text-3xl font-serif text-gold font-bold transition-all duration-300">$0
+                        COP</p>
+                    <p id="calc-usd" class="text-sm text-gray-400">$0 USD</p>
+                </div>
+
+                <p class="text-[9px] text-gray-600 text-center leading-relaxed mt-4">
+                    * Tarifas sujetas a cambios sin previo aviso. El servicio Platinum incluye Jacuzzi sin costo
+                    adicional.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Filtering Logic
+    function filterProfiles(category, btn) {
+        // Active Button State
+        document.querySelectorAll('.filter-btn').forEach(b => {
+            b.classList.remove('bg-gold', 'text-black', 'shadow-lg', 'shadow-gold/20', 'border-gold');
+            b.classList.add('border-white/10', 'text-gray-400');
+        });
+        btn.classList.remove('border-white/10', 'text-gray-400');
+        btn.classList.add('bg-gold', 'text-black', 'shadow-lg', 'shadow-gold/20', 'border-gold');
+
+        // Grid Filtering
+        const cards = document.querySelectorAll('.profile-card');
+        cards.forEach(card => {
+            if (category === 'TODAS' || card.dataset.category === category) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // Side Panel Logic
+    function toggleSidePanel(panelName) {
+        const panel = document.getElementById('panel-' + panelName);
+        if (panel.classList.contains('hidden')) {
+            panel.classList.remove('hidden');
+        } else {
+            panel.classList.add('hidden');
+        }
+
+        if (panelName === 'rates') {
+            calculateRate(); // Init calculator
+        }
+    }
+
+    // Rate Calculator Logic
+    function calculateRate() {
+        const categorySelect = document.getElementById('calc-category');
+        const durationSelect = document.getElementById('calc-duration');
+        const extraSelect = document.getElementById('calc-extras');
+
+        const selectedOption = categorySelect.options[categorySelect.selectedIndex];
+
+        let price = 0;
+
+        if (durationSelect.value === '60') {
+            price = parseFloat(selectedOption.dataset.price1h || 0);
+        } else {
+            price = parseFloat(selectedOption.dataset.price30 || 0);
+        }
+
+        // Extras Logic (Simple placeholder)
+        // If Jacuzzi is selected and NOT Platinum (because Platinum includes it), add extra cost?
+        // For now, let's say Jacuzzi adds 50k if invalid, but competitor says "Jacuzzi included in Platinum".
+        // Use logic: if extra is Jacuzzi and Category is GOLD, add 50000.
+        if (extraSelect.value === 'JACUZZI' && categorySelect.value === 'GOLD') {
+            price += 50000;
+        }
+
+        // Format
+        const copFormatter = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 });
+        const usdFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+
+        document.getElementById('calc-result').innerText = copFormatter.format(price);
+        document.getElementById('calc-usd').innerText = "Aprox " + usdFormatter.format(price / 4100); // Tasa aprox
+    }
+</script>
+{% endblock %}

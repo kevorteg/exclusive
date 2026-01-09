@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contacto | Exclusive Pro{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+            <h1 class="display-4 fw-bold text-white mb-4">CONTACTO RESERVAS</h1>
+            <p class="lead text-muted mb-5">
+                Para garantizar la máxima discreción, todas nuestras reservas se gestionan a través de nuestra Central.
+            </p>
+
+            <div class="card bg-dark border-gold shadow-lg p-5 mb-5">
+                <h3 class="text-warning mb-4">Central de WhatsApp</h3>
+                <p class="text-light mb-4">Atención personalizada y envío de perfiles disponibles en tiempo real.</p>
+
+                {% if agencia.whatsapp_central %}
+                <a href="https://wa.me/{{ agencia.whatsapp_central }}?text=Hola,%20quisiera%20reservar%20una%20cita"
+                    class="btn btn-success btn-lg rounded-pill px-5 py-3 fw-bold">
+                    <i class="fab fa-whatsapp me-2"></i> CHATEAR AHORA
+                </a>
+                {% else %}
+                <button class="btn btn-secondary" disabled>No disponible</button>
+                {% endif %}
+            </div>
+
+            <div class="mapa-container bg-secondary rounded"
+                style="height: 300px; display: flex; align-items: center; justify-content: center;">
+                <p class="text-white fw-bold mb-0">MAPA DE COBERTURA: CALI - COLOMBIA</p>
+                <!-- Aquí puedes incrustar un iframe de Google Maps si lo deseas -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .border-gold {
+        border: 1px solid #d4af37;
+    }
+</style>
+{% endblock %}

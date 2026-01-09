@@ -1,0 +1,83 @@
+:root {
+    --gold: #d4af37;
+    --dark-bg: #050505;
+    --card-bg: #1a1a1a;
+    --text-color: #e0e0e0;
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--card-bg);
+    border-bottom: 2px solid var(--gold);
+}
+
+.navbar-brand {
+    color: var(--gold) !important;
+}
+
+/* Cards */
+.card {
+    background-color: var(--card-bg);
+    border: none;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border: 1px solid var(--gold);
+}
+
+/* Buttons */
+.btn-whatsapp {
+    background-color: #25d366;
+    color: white;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.btn-reservar {
+    background-color: var(--gold);
+    color: black;
+    font-weight: bold;
+    border-radius: 30px;
+    padding: 10px 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Badges */
+.badge-gold {
+    background-color: var(--gold);
+    color: black;
+}
+
+.badge-platinum {
+    background-color: #e5e4e2;
+    color: black;
+}
+
+/* Floating Buttons */
+.floating-buttons {
+    position: fixed;
+    right: 0;
+    top: 20%;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Side Panels */
+.side-panel {
+    background: #c82333;
+    color: white;
+    padding: 20px;
+    z-index: 999;
+    border-radius: 10px;
+}
