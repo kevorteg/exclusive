@@ -1,36 +1,81 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Instalaciones | Exclusive Pro{% endblock %}
+{% block title %}Club & Instalaciones | Exclusive Pro{% endblock %}
 
 {% block content %}
-<div class="container mt-5 mb-5">
-    <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold text-gradient-gold">NUESTRAS INSTALACIONES</h1>
-        <p class="lead text-muted">Lujo, privacidad y confort para tus encuentros.</p>
-    </div>
+<div class="bg-black min-h-screen pt-32 pb-24">
+    <div class="max-w-7xl mx-auto px-6">
 
-    <div class="row g-4">
-        <!-- Puedes reemplazar estas URLs por fotos reales de tu carpeta media/instalaciones/ -->
-        <div class="col-md-8">
-            <div class="card shadow-lg">
-                <img src="https://via.placeholder.com/800x500/000000/d4af37?text=Suite+Presidencial"
-                    class="img-fluid rounded" alt="Suite Principal">
-                <div class="card-footer bg-dark text-center text-warning fw-bold">SUITE PRESIDENCIAL</div>
-            </div>
+        <!-- HEADER -->
+        <div class="text-center mb-20 animate-fade-in">
+            <h1 class="text-5xl md:text-7xl font-serif text-white mb-6">Club <span class="text-gold">Privado</span></h1>
+            <p class="text-gray-400 font-light tracking-widest uppercase text-sm max-w-2xl mx-auto leading-loose">
+                Un santuario de placer y discreción diseñado para los encuentros más exigentes.
+            </p>
         </div>
-        <div class="col-md-4">
-            <div class="card shadow-lg mb-4">
-                <img src="https://via.placeholder.com/400x240/000000/d4af37?text=Jacuzzi+Privado"
-                    class="img-fluid rounded" alt="Jacuzzi">
-                <div class="card-footer bg-dark text-center text-white small">JACUZZI PRIVADO</div>
+
+        <!-- MASONRY / GRID LAYOUT -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- Item 1: Presidencial -->
+            <div
+                class="group relative aspect-[4/3] overflow-hidden md:col-span-2 lg:col-span-2 cursor-pointer border border-white/5">
+                <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&q=80&w=1200"
+                    alt="Suite Presidencial"
+                    class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0 filter brightness-75">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90">
+                </div>
+                <div class="absolute bottom-8 left-8">
+                    <h3 class="text-3xl font-serif text-white mb-2">Suite Presidencial</h3>
+                    <p class="text-[10px] text-gold uppercase tracking-[0.2em] font-bold">Máximo Lujo & Jacuzzi Doble
+                    </p>
+                </div>
             </div>
-            <div class="card shadow-lg">
-                <img src="https://via.placeholder.com/400x240/000000/d4af37?text=Bar+Lounge" class="img-fluid rounded"
-                    alt="Bar">
-                <div class="card-footer bg-dark text-center text-white small">BAR LOUNGE</div>
+
+            <!-- Item 2: Bar -->
+            <div
+                class="group relative aspect-[3/4] md:aspect-[4/3] lg:aspect-auto overflow-hidden border border-white/5">
+                <img src="https://images.unsplash.com/photo-1514362545857-3bc16549766b?auto=format&fit=crop&q=80&w=800"
+                    alt="Bar Lounge"
+                    class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0 filter brightness-75">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90">
+                </div>
+                <div class="absolute bottom-8 left-8">
+                    <h3 class="text-2xl font-serif text-white mb-2">Lounge VIP</h3>
+                    <p class="text-[10px] text-gold uppercase tracking-[0.2em] font-bold">Cocktails & Privacidad</p>
+                </div>
             </div>
+
+            <!-- Item 3: Jacuzzi -->
+            <div class="group relative aspect-[4/3] overflow-hidden border border-white/5">
+                <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&q=80&w=800"
+                    alt="Zona Húmeda"
+                    class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0 filter brightness-75">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90">
+                </div>
+                <div class="absolute bottom-8 left-8">
+                    <h3 class="text-2xl font-serif text-white mb-2">Eco Spa</h3>
+                    <p class="text-[10px] text-gold uppercase tracking-[0.2em] font-bold">Relajación Total</p>
+                </div>
+            </div>
+
+            <!-- Item 4: Pasillos -->
+            <div class="group relative aspect-[4/3] overflow-hidden border border-white/5 md:col-span-2">
+                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=1200"
+                    alt="Espacios Comunes"
+                    class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0 filter brightness-75">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90">
+                </div>
+                <div class="absolute bottom-8 left-8">
+                    <h3 class="text-3xl font-serif text-white mb-2">Discreción Garantizada</h3>
+                    <p class="text-[10px] text-gold uppercase tracking-[0.2em] font-bold">Entradas y Salidas Privadas
+                    </p>
+                </div>
+            </div>
+
         </div>
+
     </div>
 </div>
 {% endblock %}

@@ -1,43 +1,98 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Contacto | Exclusive Pro{% endblock %}
+{% block title %}Contacto VIP | Exclusive Pro{% endblock %}
 
 {% block content %}
-<div class="container mt-5 mb-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8 text-center">
-            <h1 class="display-4 fw-bold text-white mb-4">CONTACTO RESERVAS</h1>
-            <p class="lead text-muted mb-5">
-                Para garantizar la máxima discreción, todas nuestras reservas se gestionan a través de nuestra Central.
-            </p>
+<div class="bg-black min-h-screen pt-32 pb-24 relative overflow-hidden">
 
-            <div class="card bg-dark border-gold shadow-lg p-5 mb-5">
-                <h3 class="text-warning mb-4">Central de WhatsApp</h3>
-                <p class="text-light mb-4">Atención personalizada y envío de perfiles disponibles en tiempo real.</p>
+    <!-- Background Accents -->
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-gold/5 rounded-full blur-[120px] pointer-events-none">
+    </div>
 
-                {% if agencia.whatsapp_central %}
-                <a href="https://wa.me/{{ agencia.whatsapp_central }}?text=Hola,%20quisiera%20reservar%20una%20cita"
-                    class="btn btn-success btn-lg rounded-pill px-5 py-3 fw-bold">
-                    <i class="fab fa-whatsapp me-2"></i> CHATEAR AHORA
-                </a>
-                {% else %}
-                <button class="btn btn-secondary" disabled>No disponible</button>
-                {% endif %}
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+
+        <div class="flex flex-col lg:flex-row gap-16 items-start">
+
+            <!-- LEFT: INFO & FORM -->
+            <div class="lg:w-1/2 space-y-12">
+                <div>
+                    <h1 class="text-5xl md:text-6xl font-serif text-white mb-6">Reservas & <span
+                            class="text-gold">Contacto</span></h1>
+                    <p class="text-gray-400 font-light leading-relaxed text-lg text-justify">
+                        Para garantizar la máxima discreción y seguridad, todas las citas se gestionan exclusivamente a
+                        través de nuestra central.
+                        No se atienden visitas sin cita previa.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="p-6 border border-white/5 bg-[#0a0a0a] group hover:border-gold/30 transition-all">
+                        <i data-lucide="map-pin" class="text-gold w-8 h-8 mb-4"></i>
+                        <h4 class="text-white font-serif text-xl mb-2">Ubicación</h4>
+                        <p class="text-sm text-gray-500 font-light">Barrio Granada, Zona Norte<br>Cali, Colombia</p>
+                    </div>
+                    <div class="p-6 border border-white/5 bg-[#0a0a0a] group hover:border-gold/30 transition-all">
+                        <i data-lucide="shield" class="text-gold w-8 h-8 mb-4"></i>
+                        <h4 class="text-white font-serif text-xl mb-2">Seguridad</h4>
+                        <p class="text-sm text-gray-500 font-light">Entrada privada y parqueadero cubierto vigilado.</p>
+                    </div>
+                </div>
+
+                <!-- CONTACT ACTIONS -->
+                <div class="pt-8 border-t border-white/5">
+                    <p class="text-xs font-bold text-gray-500 uppercase tracking-[0.2em] mb-6">Canal Directo</p>
+                    {% if agencia.whatsapp_central %}
+                    <a href="https://wa.me/{{ agencia.whatsapp_central }}" target="_blank"
+                        class="flex items-center justify-between w-full p-6 bg-[#111] border border-white/10 hover:border-green-500/50 hover:bg-green-900/10 transition-all group no-underline">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="p-3 bg-green-500/10 rounded-full text-green-500 group-hover:bg-green-500 group-hover:text-black transition-all">
+                                <i data-lucide="message-circle" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-serif text-white group-hover:text-green-400 transition-colors">
+                                    WhatsApp VIP</h3>
+                                <p class="text-xs text-gray-500 group-hover:text-green-500/70">Respuesta Inmediata 24/7
+                                </p>
+                            </div>
+                        </div>
+                        <i data-lucide="arrow-right"
+                            class="text-gray-600 group-hover:text-green-500 transition-all group-hover:translate-x-2"></i>
+                    </a>
+                    {% endif %}
+                </div>
             </div>
 
-            <div class="mapa-container bg-secondary rounded"
-                style="height: 300px; display: flex; align-items: center; justify-content: center;">
-                <p class="text-white fw-bold mb-0">MAPA DE COBERTURA: CALI - COLOMBIA</p>
-                <!-- Aquí puedes incrustar un iframe de Google Maps si lo deseas -->
+            <!-- RIGHT: MAP VISUAL -->
+            <div class="lg:w-1/2 w-full">
+                <div
+                    class="relative aspect-square w-full rounded-sm overflow-hidden border border-white/10 grayscale hover:grayscale-0 transition-all duration-700">
+                    <!-- Embed Google Maps (Dark Mode styling usually requires API or custom CSS filter, using simple iframe with filter here) -->
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15929.923486747514!2d-76.5383!3d3.4756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e30a667104d49d7%3A0xc36e6a6a6a6a6a6a!2sGranada%2C%20Cali%2C%20Valle%20del%20Cauca!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco"
+                        width="100%" height="100%" style="border:0; filter: invert(90%) hue-rotate(180deg);"
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+
+                    <!-- Overlay Card -->
+                    <div
+                        class="absolute bottom-6 left-6 right-6 bg-black/80 backdrop-blur-md border border-gold/30 p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-[10px] text-gold font-bold uppercase tracking-widest mb-1">Exclusive Pro
+                                    Agency</p>
+                                <p class="text-white font-serif text-lg">Cali, Colombia</p>
+                            </div>
+                            <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+                                <i data-lucide="navigation" class="text-black w-5 h-5"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
-
-<style>
-    .border-gold {
-        border: 1px solid #d4af37;
-    }
-</style>
 {% endblock %}
