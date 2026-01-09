@@ -82,6 +82,8 @@
             </a>
 
             <div class="hidden md:flex space-x-10 text-[10px] font-bold uppercase tracking-[0.2em]">
+                <a href="{% url 'home' %}"
+                    class="text-gray-300 hover:text-gold transition-colors no-underline">Inicio</a>
                 <a href="{% url 'acompañantes' %}"
                     class="text-gray-300 hover:text-gold transition-colors no-underline">Acompañantes</a>
                 <a href="{% url 'instalaciones' %}"
@@ -89,6 +91,14 @@
                 <a href="#" class="text-gray-300 hover:text-gold transition-colors no-underline">Membresía</a>
                 <a href="{% url 'contacto' %}"
                     class="text-gray-300 hover:text-gold transition-colors no-underline">Contacto</a>
+
+                <span class="text-gray-700">|</span>
+
+                <div class="flex space-x-2">
+                    <a href="#" class="text-gold hover:text-white transition-colors no-underline">ES</a>
+                    <span class="text-gray-600">/</span>
+                    <a href="#" class="text-gray-500 hover:text-gold transition-colors no-underline">EN</a>
+                </div>
             </div>
 
             <button class="md:hidden text-white">
@@ -156,10 +166,62 @@
         </div>
     </footer>
 
+    <!-- Global Floating WhatsApp -->
+    {% if agencia.whatsapp_central %}
+    <a href="https://wa.me/{{ agencia.whatsapp_central }}?text=Hola,%20quisiera%20más%20información" target="_blank"
+        class="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg shadow-green-500/20 transition-all hover:-translate-y-1 hover:scale-110 flex items-center justify-center group no-underline">
+        <i data-lucide="message-circle" class="w-8 h-8 fill-current"></i>
+        <!-- Tooltip -->
+        <span
+            class="absolute right-full mr-4 bg-black/90 text-white text-xs px-3 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity border border-white/10">
+            Reserva Rápida
+        </span>
+    </a>
+    {% endif %}
+
+    <!-- Age Verification Modal -->
+    <div id="age-modal"
+        class="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 backdrop-blur-md hidden">
+        <div
+            class="bg-[#0a0a0a] border border-gold/30 p-10 max-w-md w-full text-center relative overflow-hidden shadow-2xl shadow-gold/10">
+            <!-- Decorative Elements -->
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold to-transparent">
+            </div>
+
+            <div class="mb-8 relative z-10">
+                <div class="inline-block border-2 border-gold rounded-full p-4 mb-4">
+                    <span class="text-3xl font-black text-gold">18+</span>
+                </div>
+                <h2 class="text-3xl font-serif text-white mb-2">Contenido Exclusivo</h2>
+                <p class="text-gray-400 text-sm font-light uppercase tracking-widest">Acceso Restringido</p>
+            </div>
+
+            <div class="space-y-6 relative z-10">
+                <p class="text-gray-500 text-sm leading-relaxed">
+                    Este sitio web contiene material destinado exclusivamente a adultos.
+                    Al ingresar, confirmas que tienes al menos 18 años de edad o la mayoría de edad legal en tu
+                    jurisdicción.
+                </p>
+
+                <div class="flex flex-col gap-3">
+                    <button onclick="verifyAge()"
+                        class="w-full py-3 bg-gold text-black font-bold uppercase tracking-[0.2em] hover:bg-[#b8962d] transition-colors">
+                        Soy mayor de 18 años
+                    </button>
+                    <a href="https://google.com"
+                        class="w-full py-3 border border-white/10 text-gray-500 text-xs font-bold uppercase tracking-[0.2em] hover:text-white hover:border-white/30 transition-colors no-underline">
+                        Salir del sitio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Init Icons & Scroll Effect -->
     <script>
         lucide.createIcons();
 
+        // Navbar Scroll Effect
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             if (window.scrollY > 50) {
@@ -170,6 +232,25 @@
                 nav.classList.add('py-6');
             }
         });
+
+        // Age Verification Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!localStorage.getItem('ageVerified')) {
+                document.getElementById('age-modal').classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+        });
+
+        function verifyAge() {
+            localStorage.setItem('ageVerified', 'true');
+            const modal = document.getElementById('age-modal');
+            modal.style.opacity = '0';
+            modal.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto'; // Restore scrolling
+            }, 500);
+        }
     </script>
     {% block extra_js %}{% endblock %}
 </body>
