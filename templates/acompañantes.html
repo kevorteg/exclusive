@@ -1,86 +1,144 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Nuestras Modelos | Exclusive Pro{% endblock %}
+{% block title %}Catálogo Exclusivo | Exclusive Pro{% endblock %}
 
 {% block content %}
-<div class="container mt-5 mb-5">
-    <h1 class="text-center text-white mb-5 display-4 fw-bold">NUESTRAS MODELOS</h1>
+<div class="bg-black min-h-screen pt-32 pb-24">
+    <div class="max-w-7xl mx-auto px-6">
 
-    <ul class="nav nav-pills justify-content-center mb-5" id="pills-tab" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active fw-bold px-5 py-3 rounded-pill" id="pills-gold-tab" data-bs-toggle="pill"
-                data-bs-target="#pills-gold" type="button" role="tab" style="color: black; background-color: #d4af37;">
-                GOLD
-            </button>
-        </li>
-        <li class="nav-item ms-3" role="presentation">
-            <button class="nav-link fw-bold px-5 py-3 rounded-pill" id="pills-platinum-tab" data-bs-toggle="pill"
-                data-bs-target="#pills-platinum" type="button" role="tab"
-                style="color: black; background-color: #e5e4e2;">
-                PLATINUM
-            </button>
-        </li>
-    </ul>
-
-    <div class="tab-content" id="pills-tabContent">
-        <!-- Gold Content -->
-        <div class="tab-pane fade show active" id="pills-gold" role="tabpanel">
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                {% for p in gold %}
-                <div class="col">
-                    <div class="card h-100 shadow-lg border-gold">
-                        <a href="{% url 'perfil_detalle' p.slug %}">
-                            <img src="{{ p.foto_principal.url }}" class="card-img-top" alt="{{ p.nombre }}"
-                                style="height: 400px; object-fit: cover;">
-                        </a>
-                        <div class="card-body text-center bg-dark">
-                            <h5 class="card-title text-warning fw-bold">{{ p.nombre }}</h5>
-                            <p class="text-white small">{{ p.ciudad }}</p>
-                            <a href="{% url 'perfil_detalle' p.slug %}" class="btn btn-outline-warning btn-sm w-100">Ver
-                                Detalles</a>
-                        </div>
-                    </div>
-                </div>
-                {% empty %}
-                <p class="text-center text-muted col-12">No hay modelos Gold disponibles.</p>
-                {% endfor %}
-            </div>
+        <!-- HEADER -->
+        <div class="text-center mb-20 animate-fade-in">
+            <h1 class="text-5xl md:text-7xl font-serif text-white mb-6">Catálogo <span
+                    class="text-gold">Exclusivo</span></h1>
+            <p class="text-gray-400 font-light tracking-widest uppercase text-sm">Selección de Acompañantes de Alto
+                Nivel</p>
         </div>
 
-        <!-- Platinum Content -->
-        <div class="tab-pane fade" id="pills-platinum" role="tabpanel">
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                {% for p in platinum %}
-                <div class="col">
-                    <div class="card h-100 shadow-lg border-platinum">
-                        <a href="{% url 'perfil_detalle' p.slug %}">
-                            <img src="{{ p.foto_principal.url }}" class="card-img-top" alt="{{ p.nombre }}"
-                                style="height: 400px; object-fit: cover;">
-                        </a>
-                        <div class="card-body text-center bg-dark">
-                            <h5 class="card-title text-white fw-bold">{{ p.nombre }}</h5>
-                            <p class="text-white small">{{ p.ciudad }}</p>
-                            <a href="{% url 'perfil_detalle' p.slug %}" class="btn btn-light btn-sm w-100">Ver
-                                Detalles</a>
-                        </div>
-                    </div>
+        <!-- FILTERS -->
+        <div class="flex flex-wrap justify-center gap-4 mb-20">
+            <button
+                class="filter-btn px-8 py-3 rounded-sm text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 bg-gold border border-gold text-black shadow-lg shadow-gold/20"
+                data-filter="TODAS" onclick="filterCatalog('TODAS', this)">
+                Todas
+            </button>
+            <button
+                class="filter-btn px-8 py-3 rounded-sm text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 border border-white/10 text-gray-400 hover:border-white/30 hover:text-white"
+                data-filter="GOLD" onclick="filterCatalog('GOLD', this)">
+                Gold
+            </button>
+            <button
+                class="filter-btn px-8 py-3 rounded-sm text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 border border-white/10 text-gray-400 hover:border-white/30 hover:text-white"
+                data-filter="PLATINUM" onclick="filterCatalog('PLATINUM', this)">
+                Platinum
+            </button>
+        </div>
+
+        <!-- GRID -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10" id="catalog-grid">
+            <!-- Iterate over ALL profiles (Union of Gold + Platinum in view context or passed simply as 'perfiles') -->
+            <!-- We will handle this by rendering both lists and letting JS filter, or better, asking backend for all. 
+                 But based on current views, we have 'gold' and 'platinum' context variables. 
+                 Let's combine them visually. -->
+
+            {% for p in gold %}
+            <div class="profile-card group relative bg-[#0a0a0a] border border-white/5 overflow-hidden transition-all duration-500 hover:border-gold/40 hover:-translate-y-2"
+                data-category="GOLD">
+                <div class="absolute top-4 right-4 z-20">
+                    <span
+                        class="bg-black/80 backdrop-blur-md border border-gold/50 text-gold text-[9px] font-black px-3 py-1 tracking-[0.2em] uppercase">GOLD</span>
                 </div>
-                {% empty %}
-                <p class="text-center text-muted col-12">No hay modelos Platinum disponibles.</p>
-                {% endfor %}
+                <div class="relative aspect-[3/4] overflow-hidden">
+                    <img src="{{ p.foto_principal.url }}" alt="{{ p.nombre }}"
+                        class="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105" />
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity">
+                    </div>
+                    {% if p.estado == 'DISPONIBLE' %}
+                    <div
+                        class="absolute bottom-4 left-4 flex items-center space-x-2 bg-green-900/80 text-white text-[8px] font-bold px-2 py-1 rounded-sm uppercase tracking-tighter backdrop-blur-sm border border-green-500/30">
+                        <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
+                        <span>Disponible</span>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="p-8 text-center relative">
+                    <h3 class="text-3xl font-serif mb-1 group-hover:text-gold transition-colors">{{ p.nombre }}</h3>
+                    <p class="text-[10px] text-gray-500 tracking-[0.3em] font-bold uppercase mb-6">{{ p.ciudad }} • {{
+                        p.edad }} Años</p>
+                    <a href="{% url 'perfil_detalle' p.slug %}"
+                        class="block w-full py-4 border border-gold/30 text-gold text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-gold hover:text-black transition-all duration-300 no-underline">Ver
+                        Perfil</a>
+                </div>
             </div>
+            {% endfor %}
+
+            {% for p in platinum %}
+            <div class="profile-card group relative bg-[#0a0a0a] border border-white/5 overflow-hidden transition-all duration-500 hover:border-gold/40 hover:-translate-y-2"
+                data-category="PLATINUM">
+                <div class="absolute top-4 right-4 z-20">
+                    <span
+                        class="bg-black/80 backdrop-blur-md border border-white/50 text-white text-[9px] font-black px-3 py-1 tracking-[0.2em] uppercase">PLATINUM</span>
+                </div>
+                <div class="relative aspect-[3/4] overflow-hidden">
+                    <img src="{{ p.foto_principal.url }}" alt="{{ p.nombre }}"
+                        class="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105" />
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity">
+                    </div>
+                    {% if p.estado == 'DISPONIBLE' %}
+                    <div
+                        class="absolute bottom-4 left-4 flex items-center space-x-2 bg-green-900/80 text-white text-[8px] font-bold px-2 py-1 rounded-sm uppercase tracking-tighter backdrop-blur-sm border border-green-500/30">
+                        <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
+                        <span>Disponible</span>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="p-8 text-center relative">
+                    <h3 class="text-3xl font-serif mb-1 group-hover:text-gold transition-colors">{{ p.nombre }}</h3>
+                    <p class="text-[10px] text-gray-500 tracking-[0.3em] font-bold uppercase mb-6">{{ p.ciudad }} • {{
+                        p.edad }} Años</p>
+                    <a href="{% url 'perfil_detalle' p.slug %}"
+                        class="block w-full py-4 border border-gold/30 text-gold text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-gold hover:text-black transition-all duration-300 no-underline">Ver
+                        Perfil</a>
+                </div>
+            </div>
+            {% endfor %}
+
+            {% if not gold and not platinum %}
+            <div class="col-span-full text-center py-20">
+                <p class="text-gray-500 font-light tracking-widest uppercase">No hay perfiles disponibles en este
+                    momento.</p>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>
 
-<style>
-    .border-gold {
-        border: 1px solid #d4af37;
-    }
+{% endblock %}
 
-    .border-platinum {
-        border: 1px solid #e5e4e2;
+{% block extra_js %}
+<script>
+    function filterCatalog(category, btn) {
+        // Active Button
+        document.querySelectorAll('.filter-btn').forEach(b => {
+            b.classList.remove('bg-gold', 'text-black', 'shadow-lg', 'shadow-gold/20', 'border-gold');
+            b.classList.add('border-white/10', 'text-gray-400');
+        });
+        btn.classList.remove('border-white/10', 'text-gray-400');
+        btn.classList.add('bg-gold', 'text-black', 'shadow-lg', 'shadow-gold/20', 'border-gold');
+
+        // Filter Logic
+        const cards = document.querySelectorAll('.profile-card');
+        cards.forEach(card => {
+            if (category === 'TODAS' || card.dataset.category === category) {
+                card.classList.remove('hidden');
+                card.classList.add('block');
+            } else {
+                card.classList.add('hidden');
+                card.classList.remove('block');
+            }
+        });
     }
-</style>
+</script>
 {% endblock %}
