@@ -253,6 +253,283 @@
             }, 500);
         }
     </script>
+    <!-- Global Floating Action Buttons (Moved from home.html) -->
+    <div class="fixed right-0 top-1/2 -translate-y-1/2 z-[60] flex flex-col items-end">
+        <button onclick="toggleSidePanel('live')"
+            class="bg-red-700 hover:bg-red-800 text-white p-4 flex flex-col items-center justify-center gap-2 rounded-l-xl shadow-2xl transition-all hover:pr-8 group mb-2">
+            <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+            <span class="[writing-mode:vertical-lr] rotate-180 text-[9px] font-black tracking-[0.3em] uppercase">En
+                Vivo</span>
+        </button>
+        <button onclick="toggleSidePanel('rates')"
+            class="bg-gold hover:bg-[#b8962d] text-black p-4 flex flex-col items-center justify-center gap-2 rounded-l-xl shadow-2xl transition-all hover:pr-8 group">
+            <i data-lucide="dollar-sign" class="w-4"></i>
+            <span
+                class="[writing-mode:vertical-lr] rotate-180 text-[9px] font-black tracking-[0.3em] uppercase">Tarifas</span>
+        </button>
+    </div>
+
+    <!-- Side Panels -->
+    <!-- LIVE PANEL -->
+    <div id="panel-live" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleSidePanel('live')"></div>
+        <div
+            class="absolute top-0 right-0 h-full w-full sm:w-[400px] bg-[#0a0a0a] border-l border-gold/20 shadow-2xl overflow-y-auto custom-scrollbar">
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-10">
+                    <h3 class="text-2xl font-serif text-gold">En Tiempo Real</h3>
+                    <button onclick="toggleSidePanel('live')" class="text-gray-400 hover:text-white"><i
+                            data-lucide="x"></i></button>
+                </div>
+
+                <div class="space-y-8">
+                    <p class="text-[10px] text-gray-500 uppercase tracking-[0.2em] font-bold">Estado Actual de Modelos
+                    </p>
+
+                    <!-- GOLD LIST -->
+                    {% if en_linea_gold %}
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <h4 class="text-[10px] font-black text-gold tracking-[0.4em] uppercase">GOLD</h4>
+                            <div class="h-[1px] flex-grow bg-gold/20 ml-4"></div>
+                        </div>
+                        <div class="space-y-6">
+                            {% for p in en_linea_gold %}
+                            <div class="flex items-center space-x-6 border-b border-white/5 pb-6">
+                                <div class="relative">
+                                    <img src="{{ p.foto_principal.url }}"
+                                        class="w-16 h-16 rounded-full object-cover grayscale transition-all border border-white/10" />
+                                    <div id="status-dot-{{ p.id }}"
+                                        class="absolute -bottom-1 -right-1 w-4 h-4 border-2 border-[#0a0a0a] rounded-full {% if p.estado == 'DISPONIBLE' %}bg-green-500{% elif p.estado == 'OCUPADA' %}bg-red-500{% else %}bg-yellow-500{% endif %}">
+                                    </div>
+                                </div>
+                                <div class="flex-grow">
+                                    <h4 class="font-serif text-lg text-white">{{ p.nombre }}</h4>
+                                    <div class="flex items-center space-x-2 mt-1">
+                                        <span class="text-[8px] text-gold font-black tracking-widest uppercase">{{
+                                            p.tarifa.nombre }}</span>
+                                        <span id="status-text-{{ p.id }}"
+                                            class="text-[9px] font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider
+                                            {% if p.estado == 'DISPONIBLE' %}text-green-500 bg-green-900/20{% elif p.estado == 'OCUPADA' %}text-red-500 bg-red-900/20{% else %}text-yellow-500 bg-yellow-900/20{% endif %}">
+                                            {{ p.get_estado_display }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- PLATINUM LIST -->
+                    {% if en_linea_platinum %}
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <h4 class="text-[10px] font-black text-gold tracking-[0.4em] uppercase">PLATINUM</h4>
+                            <div class="h-[1px] flex-grow bg-gold/20 ml-4"></div>
+                        </div>
+                        <div class="space-y-6">
+                            {% for p in en_linea_platinum %}
+                            <div class="flex items-center space-x-6 border-b border-white/5 pb-6">
+                                <div class="relative">
+                                    <img src="{{ p.foto_principal.url }}"
+                                        class="w-16 h-16 rounded-full object-cover grayscale transition-all border border-white/10" />
+                                    <div id="status-dot-{{ p.id }}"
+                                        class="absolute -bottom-1 -right-1 w-4 h-4 border-2 border-[#0a0a0a] rounded-full {% if p.estado == 'DISPONIBLE' %}bg-green-500{% elif p.estado == 'OCUPADA' %}bg-red-500{% else %}bg-yellow-500{% endif %}">
+                                    </div>
+                                </div>
+                                <div class="flex-grow">
+                                    <h4 class="font-serif text-lg text-white">{{ p.nombre }}</h4>
+                                    <div class="flex items-center space-x-2 mt-1">
+                                        <span class="text-[8px] text-gold font-black tracking-widest uppercase">{{
+                                            p.tarifa.nombre }}</span>
+                                        <span id="status-text-{{ p.id }}"
+                                            class="text-[9px] font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider
+                                            {% if p.estado == 'DISPONIBLE' %}text-green-500 bg-green-900/20{% elif p.estado == 'OCUPADA' %}text-red-500 bg-red-900/20{% else %}text-yellow-500 bg-yellow-900/20{% endif %}">
+                                            {{ p.get_estado_display }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RATES PANEL (Calculator) -->
+    <div id="panel-rates" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleSidePanel('rates')"></div>
+        <div
+            class="absolute top-0 right-0 h-full w-full sm:w-[400px] bg-[#0a0a0a] border-l border-gold/20 shadow-2xl overflow-y-auto custom-scrollbar">
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-10">
+                    <h3 class="text-2xl font-serif text-gold">Calculadora VIP</h3>
+                    <button onclick="toggleSidePanel('rates')" class="text-gray-400 hover:text-white"><i
+                            data-lucide="x"></i></button>
+                </div>
+
+                <!-- Calculator Form -->
+                <div class="bg-[#111] p-6 rounded-sm border border-white/5 space-y-6">
+                    <!-- Categoría -->
+                    <div class="space-y-2">
+                        <label class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Categoría</label>
+                        <select id="calc-category" onchange="calculateRate()"
+                            class="w-full bg-black border border-white/10 text-white p-3 text-sm focus:border-gold outline-none rounded-sm">
+                            <option value="GOLD" data-price-1h="{{ tarifas_gold.precio_hora }}"
+                                data-price-30="{{ tarifas_gold.precio_30_min }}">GOLD</option>
+                            <option value="PLATINUM" data-price-1h="{{ tarifas_platinum.precio_hora }}"
+                                data-price-30="{{ tarifas_platinum.precio_30_min }}">PLATINUM</option>
+                        </select>
+                    </div>
+
+                    <!-- Tiempo -->
+                    <div class="space-y-2">
+                        <label class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Duración</label>
+                        <select id="calc-duration" onchange="calculateRate()"
+                            class="w-full bg-black border border-white/10 text-white p-3 text-sm focus:border-gold outline-none rounded-sm">
+                            <option value="60">60 Minutos</option>
+                            <option value="30">30 Minutos</option>
+                        </select>
+                    </div>
+
+                    <!-- Servicio Adicional -->
+                    <div class="space-y-2">
+                        <label class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Adicionales</label>
+                        <select id="calc-extras" onchange="calculateRate()"
+                            class="w-full bg-black border border-white/10 text-white p-3 text-sm focus:border-gold outline-none rounded-sm">
+                            <option value="0">Ninguno</option>
+                            <option value="JACUZZI">Suite con Jacuzzi (Incluido en Platinum)</option>
+                        </select>
+                    </div>
+
+                    <!-- Resultado -->
+                    <div class="mt-8 pt-8 border-t border-white/10 text-center space-y-2">
+                        <p class="text-[10px] text-gray-500 uppercase tracking-widest">Total Estimado</p>
+                        <p id="calc-result" class="text-3xl font-serif text-gold font-bold transition-all duration-300">
+                            $0
+                            COP</p>
+                        <p id="calc-usd" class="text-sm text-gray-400">$0 USD</p>
+                    </div>
+
+                    <p class="text-[9px] text-gray-600 text-center leading-relaxed mt-4">
+                        * Tarifas sujetas a cambios sin previo aviso. El servicio Platinum incluye Jacuzzi sin costo
+                        adicional.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shared Logic for Panels -->
+    <script>
+        // Real-Time Status Polling (Every 5 seconds)
+        function checkStatus() {
+            fetch('/api/status/')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.perfiles) return;
+
+                    data.perfiles.forEach(p => {
+                        // Update dots in Live Panel
+                        const dot = document.getElementById(`status-dot-${p.id}`);
+                        const text = document.getElementById(`status-text-${p.id}`);
+
+                        // Helper to set colors
+                        const setStatus = (el, type) => {
+                            el.className = el.className.replace(/bg-green-500|bg-red-500|bg-yellow-500|text-green-500|text-red-500|text-yellow-500|bg-green-900\/20|bg-red-900\/20|bg-yellow-900\/20/g, '');
+                            if (type === 'dot') {
+                                el.classList.add(
+                                    p.estado === 'DISPONIBLE' ? 'bg-green-500' :
+                                        p.estado === 'OCUPADA' ? 'bg-red-500' : 'bg-yellow-500',
+                                    'absolute', '-bottom-1', '-right-1', 'w-4', 'h-4', 'border-2', 'border-[#0a0a0a]', 'rounded-full'
+                                );
+                            } else if (type === 'text') {
+                                el.classList.add(
+                                    p.estado === 'DISPONIBLE' ? 'text-green-500' :
+                                        p.estado === 'OCUPADA' ? 'text-red-500' : 'text-yellow-500',
+                                    p.estado === 'DISPONIBLE' ? 'bg-green-900/20' :
+                                        p.estado === 'OCUPADA' ? 'bg-red-900/20' : 'bg-yellow-900/20',
+                                    'text-[9px]', 'font-bold', 'px-2', 'py-0.5', 'rounded-sm', 'uppercase', 'tracking-wider'
+                                );
+                                // Update text label (Map value to Display is hard in JS without map, let's just use text for now or simple switch)
+                                let display = 'Disponible';
+                                if (p.estado === 'OCUPADA') display = 'Ocupada';
+                                if (p.estado === 'DESCANSO') display = 'En Descanso';
+                                if (p.estado === 'NO_DISPONIBLE') display = 'No Disponible';
+                                el.innerText = display;
+                            }
+                        };
+
+                        if (dot) setStatus(dot, 'dot');
+                        if (text) setStatus(text, 'text');
+
+                        // Update Grid Pulse if available/unavailable (Only if on Home or Grid pages)
+                        const gridDot = document.getElementById(`status-dot-grid-${p.id}`);
+                        if (gridDot) {
+                            if (p.estado === 'DISPONIBLE') {
+                                gridDot.style.display = 'flex';
+                            } else {
+                                gridDot.style.display = 'none';
+                            }
+                        }
+                    });
+                })
+                .catch(err => console.error("Error polling status:", err));
+        }
+
+        // Start Polling
+        setInterval(checkStatus, 5000);
+        checkStatus(); // Initial check
+
+        // Side Panel Logic
+        function toggleSidePanel(panelName) {
+            const panel = document.getElementById('panel-' + panelName);
+            if (panel.classList.contains('hidden')) {
+                panel.classList.remove('hidden');
+            } else {
+                panel.classList.add('hidden');
+            }
+
+            if (panelName === 'rates') {
+                calculateRate(); // Init calculator
+            }
+        }
+
+        // Rate Calculator Logic
+        function calculateRate() {
+            const categorySelect = document.getElementById('calc-category');
+            const durationSelect = document.getElementById('calc-duration');
+            const extraSelect = document.getElementById('calc-extras');
+
+            if (!categorySelect || !durationSelect) return;
+
+            const selectedOption = categorySelect.options[categorySelect.selectedIndex];
+
+            let price = 0;
+
+            if (durationSelect.value === '60') {
+                price = parseFloat(selectedOption.dataset.price1h || 0);
+            } else {
+                price = parseFloat(selectedOption.dataset.price30 || 0);
+            }
+
+            // Extras Logic (Platinum includes Jacuzzi)
+            if (extraSelect.value === 'JACUZZI' && categorySelect.value === 'GOLD') {
+                price += 50000;
+            }
+
+            // Format
+            const copFormatter = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 });
+            const usdFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+
+            document.getElementById('calc-result').innerText = copFormatter.format(price);
+            document.getElementById('calc-usd').innerText = "Aprox " + usdFormatter.format(price / 4100);
+        }
+    </script>
     {% block extra_js %}{% endblock %}
 </body>
 
