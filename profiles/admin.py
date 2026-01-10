@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.utils.html import mark_safe
+from django.utils.html import mark_safe, format_html
 from .models import Perfil, ConfiguracionAgencia, Tarifa, Galeria
 
 class GaleriaInline(admin.TabularInline):
@@ -37,6 +37,11 @@ class ConfiguracionAgenciaAdmin(admin.ModelAdmin):
             return False
         return super().has_add_permission(request)
 
+from .forms import TarifaAdminForm
+
 @admin.register(Tarifa)
 class TarifaAdmin(admin.ModelAdmin):
+    form = TarifaAdminForm
     list_display = ('nombre', 'precio_hora', 'incluye_jacuzzi')
+    list_editable = ('precio_hora', 'incluye_jacuzzi') # Permitir edición rápida
+

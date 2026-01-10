@@ -25,7 +25,7 @@ class Tarifa(models.Model):
         ('GOLD', 'Gold'),
         ('PLATINUM', 'Platino'),
     ]
-    nombre = models.CharField(max_length=10, choices=CATEGORIAS, unique=True)
+    nombre = models.CharField(max_length=10, choices=CATEGORIAS)
     precio_hora = models.DecimalField(max_digits=10, decimal_places=0, verbose_name="Precio x Hora")
     precio_30_min = models.DecimalField(max_digits=10, decimal_places=0, verbose_name="Precio x 30 Min", null=True, blank=True)
     precio_servicio_completo = models.DecimalField(max_digits=10, decimal_places=0, null=True, blank=True)

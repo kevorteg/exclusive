@@ -1,6 +1,12 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
 from django.views.generic import TemplateView, DetailView, ListView
 from .models import Perfil, ConfiguracionAgencia, Tarifa
+
+def get_status_updates(request):
+    """API endpoint for real-time status updates"""
+    perfiles = Perfil.objects.filter(activo=True).values('id', 'slug', 'estado')
+    return JsonResponse({'perfiles': list(perfiles)})
 
 def get_common_context():
     """Helper to get context available globally if needed, or just for specific views."""
@@ -50,3 +56,22 @@ def instalaciones(request):
 
 def contacto(request):
     return render(request, 'contacto.html', get_common_context())
+
+# HTMX Partials
+def profiles_grid_partial(request):
+    perfiles = Perfil.objects.filter(activo=True).select_related('tarifa')
+    context = {'perfiles': perfiles}
+    return render(request, 'partials/profiles_grid.html', context)
+
+def live_panel_partial(request):
+    # Re-use logic to get available/online profiles
+    perfiles = Perfil.objects.filter(activo=True).select_related('tarifa')
+    disponibles = perfiles.filter(estado='DISPONIBLE')
+    ocupadas = perfiles.filter(estado='OCUPADA')
+    
+    context = {
+        'en_linea_gold': disponibles.filter(tarifa__nombre='GOLD'),
+        'en_linea_platinum': disponibles.filter(tarifa__nombre='PLATINUM'),
+        'en_linea_ocupadas': ocupadas,
+    }
+    return render(request, 'partials/live_panel_content.html', context)

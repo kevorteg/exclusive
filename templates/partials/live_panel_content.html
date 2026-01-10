@@ -1,0 +1,110 @@
+<div class="space-y-8">
+    <p class="text-[10px] text-gray-500 uppercase tracking-[0.2em] font-bold">Estado Actual de Modelos</p>
+
+    <!-- GOLD LIST -->
+    {% if en_linea_gold %}
+    <div>
+        <div class="flex items-center justify-between mb-6">
+            <h4 class="text-[10px] font-black text-gold tracking-[0.4em] uppercase">GOLD</h4>
+            <div class="h-[1px] flex-grow bg-gold/20 ml-4"></div>
+        </div>
+        <div class="space-y-6">
+            {% for p in en_linea_gold %}
+            <div class="flex items-center space-x-6 border-b border-white/5 pb-6">
+                <div class="relative">
+                    <img src="{{ p.foto_principal.url }}"
+                        class="w-16 h-16 rounded-full object-cover grayscale transition-all border border-white/10" />
+                    <div
+                        class="absolute -bottom-1 -right-1 w-4 h-4 border-2 border-[#0a0a0a] rounded-full {% if p.estado == 'DISPONIBLE' %}bg-green-500{% elif p.estado == 'OCUPADA' %}bg-red-500{% else %}bg-yellow-500{% endif %}">
+                    </div>
+                </div>
+                <div class="flex-grow">
+                    <h4 class="font-serif text-lg text-white">{{ p.nombre }}</h4>
+                    <div class="flex items-center space-x-2 mt-1">
+                        <span class="text-[8px] text-gold font-black tracking-widest">{{ p.tarifa.get_nombre_display
+                            }}</span>
+                        <span
+                            class="text-[9px] font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider
+                            {% if p.estado == 'DISPONIBLE' %}text-green-500 bg-green-900/20{% elif p.estado == 'OCUPADA' %}text-red-500 bg-red-900/20{% else %}text-yellow-500 bg-yellow-900/20{% endif %}">
+                            {{ p.get_estado_display }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- PLATINUM LIST -->
+    {% if en_linea_platinum %}
+    <div>
+        <div class="flex items-center justify-between mb-6">
+            <h4 class="text-[10px] font-black text-gold tracking-[0.4em] uppercase">PLATINUM</h4>
+            <div class="h-[1px] flex-grow bg-gold/20 ml-4"></div>
+        </div>
+        <div class="space-y-6">
+            {% for p in en_linea_platinum %}
+            <div class="flex items-center space-x-6 border-b border-white/5 pb-6">
+                <div class="relative">
+                    <img src="{{ p.foto_principal.url }}"
+                        class="w-16 h-16 rounded-full object-cover grayscale transition-all border border-white/10" />
+                    <div
+                        class="absolute -bottom-1 -right-1 w-4 h-4 border-2 border-[#0a0a0a] rounded-full {% if p.estado == 'DISPONIBLE' %}bg-green-500{% elif p.estado == 'OCUPADA' %}bg-red-500{% else %}bg-yellow-500{% endif %}">
+                    </div>
+                </div>
+                <div class="flex-grow">
+                    <h4 class="font-serif text-lg text-white">{{ p.nombre }}</h4>
+                    <div class="flex items-center space-x-2 mt-1">
+                        <span class="text-[8px] text-gold font-black tracking-widest">{{ p.tarifa.get_nombre_display
+                            }}</span>
+                        <span
+                            class="text-[9px] font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider
+                            {% if p.estado == 'DISPONIBLE' %}text-green-500 bg-green-900/20{% elif p.estado == 'OCUPADA' %}text-red-500 bg-red-900/20{% else %}text-yellow-500 bg-yellow-900/20{% endif %}">
+                            {{ p.get_estado_display }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- OCCUPIED LIST (OCUPADAS) -->
+    {% if en_linea_ocupadas %}
+    <div>
+        <div class="flex items-center justify-between mb-6 relative">
+            <!-- Red Glow Effect for 'Busy' Section -->
+            <div class="absolute inset-0 bg-red-900/20 blur-xl opacity-50"></div>
+            <h4 class="text-[10px] font-black text-red-600 tracking-[0.4em] uppercase relative z-10">OCUPADAS</h4>
+            <div class="h-[1px] flex-grow bg-red-900/20 ml-4 relative z-10"></div>
+        </div>
+        <div class="space-y-6">
+            {% for p in en_linea_ocupadas %}
+            <div
+                class="flex items-center space-x-6 border-b border-white/5 pb-6 opacity-60 hover:opacity-100 transition-opacity">
+                <div class="relative">
+                    <img src="{{ p.foto_principal.url }}"
+                        class="w-16 h-16 rounded-full object-cover grayscale transition-all border border-white/10" />
+                    <div
+                        class="absolute -bottom-1 -right-1 w-4 h-4 border-2 border-[#0a0a0a] rounded-full bg-red-500 animate-pulse">
+                    </div>
+                </div>
+                <div class="flex-grow">
+                    <h4 class="font-serif text-lg text-gray-400">{{ p.nombre }}</h4> <!-- Name slightly dimmed -->
+                    <div class="flex items-center space-x-2 mt-1">
+                        <span class="text-[8px] text-red-800/70 font-black tracking-widest">{{
+                            p.tarifa.get_nombre_display }}</span>
+                        <span
+                            class="text-[9px] font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider text-red-500 bg-red-900/20">
+                            OCUPADA
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>

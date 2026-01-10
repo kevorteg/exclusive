@@ -1,0 +1,48 @@
+{% for p in perfiles %}
+<div class="profile-card group relative bg-[#0a0a0a] border border-white/5 overflow-hidden transition-all duration-500 hover:border-gold/40 hover:-translate-y-2"
+    data-category="{{ p.tarifa.nombre }}">
+    <!-- Badge de Categoría -->
+    <div class="absolute top-4 right-4 z-20">
+        <span
+            class="bg-black/80 backdrop-blur-md border border-gold/50 text-gold text-[9px] font-black px-3 py-1 tracking-[0.2em] uppercase">
+            {{ p.tarifa.nombre }}
+        </span>
+    </div>
+
+    <!-- Imagen con Overlay -->
+    <div class="relative aspect-[3/4] overflow-hidden">
+        <img src="{{ p.foto_principal.url }}" alt="{{ p.nombre }}"
+            class="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105" />
+        <div
+            class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity">
+        </div>
+
+        {% if p.en_tiempo_real %}
+        <div
+            class="absolute bottom-4 left-4 flex items-center space-x-2 bg-red-600/90 text-white text-[8px] font-bold px-2 py-1 rounded-sm uppercase tracking-tighter animate-pulse">
+            <span class="w-1.5 h-1.5 bg-white rounded-full"></span>
+            <span>Disponible Ahora</span>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Información -->
+    <div class="p-8 text-center relative">
+        <h3 class="text-3xl font-serif mb-1 group-hover:text-gold transition-colors">{{ p.nombre }}</h3>
+        <p class="text-[10px] text-gray-500 tracking-[0.3em] font-bold uppercase mb-6">
+            {{ p.ciudad }} • {{ p.edad }} Años
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-2 mb-8">
+            <!-- Placeholder tags, could come from DB later -->
+            <span class="text-[9px] text-gold/70 font-bold border border-gold/20 px-2 py-0.5 rounded-sm">MASAJES</span>
+            <span class="text-[9px] text-gold/70 font-bold border border-gold/20 px-2 py-0.5 rounded-sm">CENA</span>
+        </div>
+
+        <a href="{% url 'perfil_detalle' p.slug %}"
+            class="block w-full py-4 border border-gold/30 text-gold text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-gold hover:text-black transition-all duration-300 no-underline">
+            Ver Perfil Completo
+        </a>
+    </div>
+</div>
+{% endfor %}

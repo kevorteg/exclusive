@@ -177,9 +177,11 @@
                     class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity">
                 </div>
 
+                <!-- Status dot for Real Time (ID for JS) -->
                 {% if p.en_tiempo_real %}
-                <div
-                    class="absolute bottom-4 left-4 flex items-center space-x-2 bg-red-600/90 text-white text-[8px] font-bold px-2 py-1 rounded-sm uppercase tracking-tighter animate-pulse">
+                <div id="status-dot-grid-{{ p.id }}"
+                    class="absolute bottom-4 left-4 flex items-center space-x-2 bg-red-600/90 text-white text-[8px] font-bold px-2 py-1 rounded-sm uppercase tracking-tighter animate-pulse"
+                    {% if p.estado !='DISPONIBLE' %}style="display:none" {% endif %}>
                     <span class="w-1.5 h-1.5 bg-white rounded-full"></span>
                     <span>Disponible Ahora</span>
                 </div>
@@ -280,7 +282,7 @@
                             <div class="relative">
                                 <img src="{{ p.foto_principal.url }}"
                                     class="w-16 h-16 rounded-full object-cover grayscale transition-all border border-white/10" />
-                                <div
+                                <div id="status-dot-{{ p.id }}"
                                     class="absolute -bottom-1 -right-1 w-4 h-4 border-2 border-[#0a0a0a] rounded-full {% if p.estado == 'DISPONIBLE' %}bg-green-500{% elif p.estado == 'OCUPADA' %}bg-red-500{% else %}bg-yellow-500{% endif %}">
                                 </div>
                             </div>
@@ -289,7 +291,7 @@
                                 <div class="flex items-center space-x-2 mt-1">
                                     <span class="text-[8px] text-gold font-black tracking-widest uppercase">{{
                                         p.tarifa.nombre }}</span>
-                                    <span
+                                    <span id="status-text-{{ p.id }}"
                                         class="text-[9px] font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider
                                         {% if p.estado == 'DISPONIBLE' %}text-green-500 bg-green-900/20{% elif p.estado == 'OCUPADA' %}text-red-500 bg-red-900/20{% else %}text-yellow-500 bg-yellow-900/20{% endif %}">
                                         {{ p.get_estado_display }}
@@ -315,7 +317,7 @@
                             <div class="relative">
                                 <img src="{{ p.foto_principal.url }}"
                                     class="w-16 h-16 rounded-full object-cover grayscale transition-all border border-white/10" />
-                                <div
+                                <div id="status-dot-{{ p.id }}"
                                     class="absolute -bottom-1 -right-1 w-4 h-4 border-2 border-[#0a0a0a] rounded-full {% if p.estado == 'DISPONIBLE' %}bg-green-500{% elif p.estado == 'OCUPADA' %}bg-red-500{% else %}bg-yellow-500{% endif %}">
                                 </div>
                             </div>
@@ -324,7 +326,7 @@
                                 <div class="flex items-center space-x-2 mt-1">
                                     <span class="text-[8px] text-gold font-black tracking-widest uppercase">{{
                                         p.tarifa.nombre }}</span>
-                                    <span
+                                    <span id="status-text-{{ p.id }}"
                                         class="text-[9px] font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider
                                         {% if p.estado == 'DISPONIBLE' %}text-green-500 bg-green-900/20{% elif p.estado == 'OCUPADA' %}text-red-500 bg-red-900/20{% else %}text-yellow-500 bg-yellow-900/20{% endif %}">
                                         {{ p.get_estado_display }}
@@ -408,6 +410,65 @@
 
 {% block extra_js %}
 <script>
+    // Real-Time Status Polling (Every 5 seconds)
+    function checkStatus() {
+        fetch('/api/status/')
+            .then(response => response.json())
+            .then(data => {
+                if (!data.perfiles) return;
+
+                data.perfiles.forEach(p => {
+                    // Update dots in Live Panel
+                    const dot = document.getElementById(`status-dot-${p.id}`);
+                    const text = document.getElementById(`status-text-${p.id}`);
+
+                    // Helper to set colors
+                    const setStatus = (el, type) => {
+                        el.className = el.className.replace(/bg-green-500|bg-red-500|bg-yellow-500|text-green-500|text-red-500|text-yellow-500|bg-green-900\/20|bg-red-900\/20|bg-yellow-900\/20/g, '');
+                        if (type === 'dot') {
+                            el.classList.add(
+                                p.estado === 'DISPONIBLE' ? 'bg-green-500' :
+                                    p.estado === 'OCUPADA' ? 'bg-red-500' : 'bg-yellow-500',
+                                'absolute', '-bottom-1', '-right-1', 'w-4', 'h-4', 'border-2', 'border-[#0a0a0a]', 'rounded-full'
+                            );
+                        } else if (type === 'text') {
+                            el.classList.add(
+                                p.estado === 'DISPONIBLE' ? 'text-green-500' :
+                                    p.estado === 'OCUPADA' ? 'text-red-500' : 'text-yellow-500',
+                                p.estado === 'DISPONIBLE' ? 'bg-green-900/20' :
+                                    p.estado === 'OCUPADA' ? 'bg-red-900/20' : 'bg-yellow-900/20',
+                                'text-[9px]', 'font-bold', 'px-2', 'py-0.5', 'rounded-sm', 'uppercase', 'tracking-wider'
+                            );
+                            // Update text label (Map value to Display is hard in JS without map, let's just use text for now or simple switch)
+                            let display = 'Disponible';
+                            if (p.estado === 'OCUPADA') display = 'Ocupada';
+                            if (p.estado === 'DESCANSO') display = 'En Descanso';
+                            if (p.estado === 'NO_DISPONIBLE') display = 'No Disponible';
+                            el.innerText = display;
+                        }
+                    };
+
+                    if (dot) setStatus(dot, 'dot');
+                    if (text) setStatus(text, 'text');
+
+                    // Update Grid Pulse if available/unavailable
+                    const gridDot = document.getElementById(`status-dot-grid-${p.id}`);
+                    if (gridDot) {
+                        if (p.estado === 'DISPONIBLE') {
+                            gridDot.style.display = 'flex';
+                        } else {
+                            gridDot.style.display = 'none';
+                        }
+                    }
+                });
+            })
+            .catch(err => console.error("Error polling status:", err));
+    }
+
+    // Start Polling
+    setInterval(checkStatus, 5000);
+    checkStatus(); // Initial check
+
     // Filtering Logic
     function filterProfiles(category, btn) {
         // Active Button State
@@ -459,10 +520,7 @@
             price = parseFloat(selectedOption.dataset.price30 || 0);
         }
 
-        // Extras Logic (Simple placeholder)
-        // If Jacuzzi is selected and NOT Platinum (because Platinum includes it), add extra cost?
-        // For now, let's say Jacuzzi adds 50k if invalid, but competitor says "Jacuzzi included in Platinum".
-        // Use logic: if extra is Jacuzzi and Category is GOLD, add 50000.
+        // Extras Logic (Platinum includes Jacuzzi)
         if (extraSelect.value === 'JACUZZI' && categorySelect.value === 'GOLD') {
             price += 50000;
         }
@@ -472,7 +530,7 @@
         const usdFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 
         document.getElementById('calc-result').innerText = copFormatter.format(price);
-        document.getElementById('calc-usd').innerText = "Aprox " + usdFormatter.format(price / 4100); // Tasa aprox
+        document.getElementById('calc-usd').innerText = "Aprox " + usdFormatter.format(price / 4100);
     }
 </script>
 {% endblock %}
